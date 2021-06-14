@@ -69,16 +69,103 @@
 </div>
 <script src="../../common/js/jquery.js"></script>
 <script>
-// 第1問  id='q1'の要素の文字色を赤色にせよ。
-// 第2問  id='q2'の要素をクリックしたら背景色をピンクにせよ。
-// 第3問  id='q3'の要素をクリックしたら2秒かけてフェードアウトさせよ。
-// 第4問  id='q4'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
-// 第5問  id='q5'の要素をクリックしたらこの要素にlargeというクラスを付与せよ。
-// 第6問  id='q6'の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
-// 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
-// 第8問  id='q8'の要素をhoverしたらlargeというクラスを付与し、hoverが外れたら、クラスを削除せよ。
-// 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
-// 第10問 id='q10'の子要素をクリックしたら、その要素のインデックスと等しいid='q11'の子要素にlargeというクラスを追加せよ。
+
+  $(function() {
+  // 各処理を記述する前に大枠のDOMを用意する（htmlタグのイメージ）
+  // DOM（Document Object Model）＝ツリー構造、IDでページと言語（JS）を繋ぐ
+
+    $('#q1').css('color', 'red');
+    // $('#ID').css('class', '処理');
+    // IDの取得＝『#○○』
+    // classの取得＝『.○○』
+    // 『'#q1'』＝セレクタ
+    // 『.○○()』＝メソッド
+    // セレクタやメソッドの処理は『''』もしくは『””』で囲う
+
+    $('#q2').click(function() {
+      $(this).css('background-color', 'cadetblue');
+    });
+    // 『.click』メソッド＝クリック時に発火するメソッド、()内へ関数を記述する
+    // 『$(this)』＝『'#q2'』が代入されている
+    // 同じ処理を書かない理由＝メンテナンス性、可読性の為
+
+    $('#q3').click(fadeOut);
+    function fadeOut() {
+      $(this).fadeOut(2000);
+    }
+    // 『fadeOut』メソッド＝フェードアウト（ゆっくり消える）処理
+    // 『fadeOut(2000)』＝２秒掛けて処理されるように指定
+    // 『click(fadeOut)』＝fadeOutを引数で渡す、クリック時にfadeOutメソッドが実行
+
+    $('#q4').click(function() {
+      $(this).prepend('DOMの中の前')
+             .append('DOMの中の後')
+             .before('DOMの前')
+             .after('DOMの後');
+    });
+    // 『メソッドチェイン』＝メソッドの連結した記述方法
+    // 『.○○('').○○('').○○('')』のように横並びも可能
+    // 『prepend』メソッド＝要素の先 （読み＝プリペンド、意味＝付加）
+    // 『append』メソッド＝要素の末尾 （読み＝アパンド、意味＝追加）
+    // 『before』メソッド＝クラスの先
+    // 『after』メソッド＝クラスの末尾
+
+    $('#q5').click(function() {
+      $(this).addClass('large');
+    });
+    // 『addClass』メソッド＝クラスを追加するメソッド
+    // 『css()』でも可能だが、記述量と可読性から『.addClass('処理')』が現場向き
+
+    $('#q6').click(function() {
+      $(this).animate({
+        'marginLeft': 100,
+        'marginTop': 100
+      }, 2000);
+    });
+    // 『animate』メソッド＝プロパティ（特性、属性）を変更するメソッド、キャメルケースで記述する
+    // 『top・left』へ100pxのmarginを２秒掛けて与える
+    // 第一引数で移動の処理、第二引数でその処理の時間
+
+    $('#q7').find('li').click(function() {
+      var targetNum = $(this).index();
+      console.log(targetNum);
+      alert(targetNum);
+    });
+    // 『find』メソッド＝引数の要素を見つけるメソッド
+    // 『index』メソッド＝要素の場所（番号）を教えるメソッド、○○番目のインデックス
+    // 変数『targetNum』へ『$(this).index()』＝それが何番目のインデックスか？を代入
+    // 出力した際にアラートでtargetNumの結果を表示
+    // 上記の流れをクリック時にfindメソッドで見つけた対応する要素のものを表示
+
+    $('#q8').hover(function() {
+      $(this).addClass('large');
+    }, function() {
+      $(this).removeClass('large');
+    });
+    // 『hover』メソッド＝hover時に引数で与えた関数を実行するメソッド
+    // 引数が一つの場合、hover時に引数の関数を実行
+    // 引数が二つの場合、hover時に一つ目を実行、離す際に二つ目を実行
+    // 『エミュレート』＝ある装置やソフトウェア、システムの挙動を別のソフトウェアなどによって模倣し、代替として動作させること。
+
+    $('#q9').click(function() {
+      var text = $(this).data('text');
+      console.log(text);
+    });
+    // 『data』メソッド＝data属性の取得、セット（格納）するメソッド
+    // DOMの記述『data-○○='jQuery'』（divタグ内）
+    // 取得方法＝『data('○○')』＝『jQuery』が取得
+    // 『$('DOM').data('○○', '□□')』＝DOMの『data-○○』属性へ『□□』をセット（格納）
+
+    $('#q10').find('li').click(function() {
+      var num = $(this).index();
+      $('#q11').find('li').eq(num).addClass('large');
+    });
+    // eq（position）＝エレメントの集合から、指定したポジションのエレメントだけを取り出す
+    // 変数『num』へインデックス番号を取得するメソッドを代入
+    // 変数『num』を『eq』の引数へ渡す
+    // 指定したエレメントと対応する、findメソッドで見つけた『'#q11'』の『'li'』を『addClass』メソッドで『'large'』する
+
+  });
 </script>
 </body>
 </html>
