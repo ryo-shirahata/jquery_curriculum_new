@@ -24,6 +24,21 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+
+      $(function() {
+
+        $('.nav').find('li').click(function() {
+          var article = $(this).index();
+          $('.contents').find('li').not(article).addClass('is-hidden');
+          $('.contents').find('li').eq(article).removeClass('is-hidden');
+        });
+
+      });
+      // 『is-hidden』クラス＝『display: none;』＝非表示 hidden＝ヒデゥン
+      // 『not』メソッド＝指定した引数を除外するメソッド
+      // 今回＝『not(article)』、変数『article』＝index番号が入る、それ以外へ『addClass』する
+      // 取得した『article』、『eqメソッド』で対応する記事を表示
+
       // 今回やるのはタブメニューです。
       // navの小要素であるliをクリックして、contents内の小要素であるli要素を表示させる。
       // .index() 要素のindexを取得します。
