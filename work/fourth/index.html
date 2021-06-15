@@ -13,8 +13,8 @@
     <div class="wrapper">
       <ul class="menu__list clearfix">
         <li>
-          <p class="menu__list__title">Animal</p>
-          <ul class="menu__list__childList" style="display: none;">
+          <p class="menu__list__title" id="animalTitle">Animal</p>
+          <ul class="menu__list__childList" id="animaList" style="display: none;">
             <li>
               <p class="menu__list__childList__title">Lion</p>
             </li>
@@ -30,8 +30,8 @@
           </ul>
         </li>
         <li>
-          <p class="menu__list__title">Plant</p>
-          <ul class="menu__list__childList" style="display: none;">
+          <p class="menu__list__title" id="plantTitle">Plant</p>
+          <ul class="menu__list__childList" id="plantList" style="display: none;">
             <li>
               <p class="menu__list__childList__title">Cedar</p>
             </li>
@@ -47,6 +47,43 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+
+      $(function() {
+        $('#animalTitle').hover(function() {
+          $('#animaList').stop().slideDown(500);
+        }, function() {
+          $('#animaList').stop().slideUp(500);
+        });
+
+        $('#plantTitle').hover(function() {
+          $('#plantList').stop().slideDown(500);
+        }, function() {
+          $('#plantList').stop().slideUp(500);
+        });
+      });
+      // 『children』メソッド＝直下の子要素のみを取得するメソッド
+      // ▶︎子孫要素の全て取得＝『find』メソッドを使用する
+      // 『slideDown』メソッド＝指定のプロパティを時間を掛けて降下させるメソッド
+      // 『slideUp』メソッド＝指定のプロパティを時間を掛けて上昇させるメソッド
+
+      // 『stop』メソッド＝アニメーションの処理を中止するメソッド
+      // ▶︎『true/false』の引数を与えて４種類の動作を変化可能
+      // 第一引数＝現在のアニメーションをゴールまでジャンプさせるか否か
+      // 第二引数＝待機状態のアニメーションを破棄するか否か
+
+      // クラス『menu__list__title』へそれぞれidを付与
+      // animal・plantの各ulにもidを付与
+      // 与えたidを指定し、jQueryオブジェクトを取得
+      // hoverメソッドを用いて各タイトルへhover時に以下の関数を実行
+      // 第一引数＝id『animaList』を0.5秒掛けてslideDownする
+      // 第二引数＝id『animaList』を0.5秒掛けてslideUpする
+      // 上記の仕様をplantも同様
+
+      // 『stop』メソッドを使用しない場合、hoverした分だけ解除後も上下へ動いてしまう
+      // 今回『find』を使わない理由＝li要素内に子要素が増えた場合、全て出力されてしまわない為
+
+
+
       // 今回やるのはドロップメニューです。
       // メニューをhoverすると隠れている中のメニューが表示され、メニューから離れると中のメニューが非表示されるプログラムです。
       // [使用するメソッド]
