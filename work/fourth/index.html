@@ -13,8 +13,8 @@
     <div class="wrapper">
       <ul class="menu__list clearfix">
         <li>
-          <p class="menu__list__title" id="animalTitle">Animal</p>
-          <ul class="menu__list__childList" id="animaList" style="display: none;">
+          <p class="menu__list__title">Animal</p>
+          <ul class="menu__list__childList" style="display: none;">
             <li>
               <p class="menu__list__childList__title">Lion</p>
             </li>
@@ -30,8 +30,8 @@
           </ul>
         </li>
         <li>
-          <p class="menu__list__title" id="plantTitle">Plant</p>
-          <ul class="menu__list__childList" id="plantList" style="display: none;">
+          <p class="menu__list__title">Plant</p>
+          <ul class="menu__list__childList" style="display: none;">
             <li>
               <p class="menu__list__childList__title">Cedar</p>
             </li>
@@ -49,17 +49,14 @@
     <script>
 
       $(function() {
-        $('#animalTitle').hover(function() {
-          $('#animaList').stop().slideDown(500);
-        }, function() {
-          $('#animaList').stop().slideUp(500);
-        });
-
-        $('#plantTitle').hover(function() {
-          $('#plantList').stop().slideDown(500);
-        }, function() {
-          $('#plantList').stop().slideUp(500);
-        });
+        $('.menu__list').children('li').hover(
+          function() {
+            $(this).children('.menu__list__childList').stop().slideDown(500);
+          },
+          function() {
+            $(this).children('.menu__list__childList').stop().slideUp(500);
+          }
+        );
       });
       // 『children』メソッド＝直下の子要素のみを取得するメソッド
       // ▶︎子孫要素の全て取得＝『find』メソッドを使用する
